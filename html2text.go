@@ -155,6 +155,12 @@ func HTML2Text(html string) string {
 			} else if tagName == "br" || tagName == "br/" {
 				// new line
 				outBuf.WriteString("\r\n")
+			} else if tagName == "table" {
+				// new line at table start
+				outBuf.WriteString("\r\n")
+			} else if tagName == "/tr" || tagName == "/th" {
+				// new line at table row
+				outBuf.WriteString("\r\n")
 			} else if tagName == "p" || tagName == "/p" {
 				if canPrintNewline {
 					outBuf.WriteString("\r\n\r\n")

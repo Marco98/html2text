@@ -31,6 +31,12 @@ func TestHTML2Text(t *testing.T) {
 			So(HTML2Text(`<p>two</p><p>paragraphs</p>`), ShouldEqual, "two\r\n\r\nparagraphs")
 		})
 
+		Convey("HTML Tables", func() {
+			So(HTML2Text("this<table><tr><td>should newline</td></tr></table>a table"), ShouldEqual, "this\r\nshould newline\r\na table")
+			So(HTML2Text("this<table><th><td>should work</td></th></table>with ths aswell"), ShouldEqual, "this\r\nshould work\r\nwith ths aswell")
+			So(HTML2Text("<table><tr><td>multirow</td></tr><tr><td>tables</td></tr></table>test"), ShouldEqual, "\r\nmultirow\r\ntables\r\ntest")
+		})
+
 		Convey("Headings", func() {
 			So(HTML2Text("<h1>First</h1>main text"), ShouldEqual, "First\r\n\r\nmain text")
 			So(HTML2Text("First<h2>Second</h2>next section"), ShouldEqual, "First\r\n\r\nSecond\r\n\r\nnext section")
